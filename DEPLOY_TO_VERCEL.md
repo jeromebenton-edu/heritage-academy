@@ -78,7 +78,7 @@ Run this SQL in Vercel Postgres dashboard:
 Or via command line:
 ```bash
 # Install Vercel CLI
-npm i -g vercel
+pnpm add -g vercel
 
 # Login
 vercel login
@@ -88,7 +88,7 @@ vercel link
 
 # Run migration
 vercel env pull .env.local
-npm run db:setup
+pnpm run db:setup
 ```
 
 ### Step 6: Deploy!
@@ -129,13 +129,13 @@ KV_REST_API_TOKEN=xxx
 
 ```bash
 # Install dependencies
-npm install
+pnpm install
 
 # Pull environment variables from Vercel
 vercel env pull .env.local
 
 # Run development server
-npm run dev
+pnpm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000)
@@ -285,7 +285,7 @@ seed().catch(console.error)
 
 Run:
 ```bash
-npx tsx scripts/seed.ts
+pnpm dlx tsx scripts/seed.ts
 ```
 
 ---

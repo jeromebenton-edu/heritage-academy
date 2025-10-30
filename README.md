@@ -1,4 +1,4 @@
-# 🏛️ Heritage Academy
+# Heritage Academy
 
 > Interactive Educational Platform for Learning Heritage Architecture & Cultural Preservation
 
@@ -9,47 +9,47 @@
 
 Heritage Academy is a comprehensive educational platform designed to teach students and enthusiasts about heritage architecture, cultural preservation, and architectural history through interactive lessons, quizzes, and gamification.
 
-## ✨ Features
+## Features
 
-### 🎓 Educational Content
+### Educational Content
 - **Interactive Lessons** - Learn about 11 architectural elements
 - **Video Tutorials** - Visual learning with embedded content
 - **Rich Media** - Images, diagrams, and 3D models
 - **Progressive Learning** - Structured curriculum from basics to advanced
 
-### 📝 Assessment & Practice
+### Assessment & Practice
 - **Interactive Quizzes** - Multiple choice, true/false, image identification
 - **Flashcard System** - Spaced repetition for better retention
 - **Practice Mode** - Test knowledge without pressure
 - **Instant Feedback** - Learn from mistakes immediately
 
-### 🏆 Gamification
+### Gamification
 - **Points & Levels** - Earn XP for completing lessons and quizzes
 - **Badges & Achievements** - Unlock rewards for milestones
 - **Leaderboards** - Compete with other learners
 - **Streaks** - Build daily learning habits
 - **Progress Tracking** - Visualize your learning journey
 
-### 👤 User Features
+### User Features
 - **Personal Dashboard** - Track progress and stats
 - **Learning Path** - Customized curriculum based on level
 - **Study History** - Review past performance
 - **Bookmarks** - Save favorite lessons and resources
 - **Notes** - Take personal notes on lessons
 
-### 🔒 Privacy-Friendly (No Account Required)
+### Privacy-Friendly (No Account Required)
 - Progress is stored locally in your browser (localStorage)
 - No personal data is collected or transmitted to a server
 - Optional accounts can be added later for sync/leaderboards
 
-### 🎨 Modern UI/UX
+### Modern UI/UX
 - **Responsive Design** - Works on all devices
 - **Dark/Light Mode** - Choose your preference
 - **Animations** - Smooth, delightful interactions
 - **Accessibility** - WCAG 2.1 compliant
 - **Fast Loading** - Optimized for performance
 
-## 🏗️ Architecture
+## Architecture
 
 ### Tech Stack
 
@@ -130,11 +130,11 @@ heritage-academy/
 └── styles/                  # Additional styles
 ```
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 
-- Node.js 18+ and npm
+- Node.js 18+ and pnpm 8+
 - Vercel account (free tier works)
 - Git
 
@@ -147,7 +147,7 @@ cd /home/jerome/projects/teach/4906/capstone2/heritage_academy
 
 2. **Install dependencies:**
 ```bash
-npm install
+pnpm install
 ```
 
 3. **Set up environment variables:**
@@ -170,12 +170,12 @@ BLOB_READ_WRITE_TOKEN="your-blob-token"
 
 4. **Set up database:**
 ```bash
-npm run db:setup
+pnpm run db:setup
 ```
 
 5. **Run development server:**
 ```bash
-npm run dev
+pnpm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000)
@@ -186,7 +186,7 @@ Open [http://localhost:3000](http://localhost:3000)
 
 ```bash
 # Install Vercel CLI
-npm i -g vercel
+pnpm add -g vercel
 
 # Login
 vercel login
@@ -215,7 +215,7 @@ git push -u origin main
 
 Your app will be live at: `https://your-app.vercel.app`
 
-## 📚 Educational Content
+## Educational Content
 
 ### Architectural Elements (11 Categories)
 
@@ -255,7 +255,7 @@ Your app will be live at: `https://your-app.vercel.app`
 - Conservation techniques
 - Modern challenges
 
-## 🎮 Gamification System
+## Gamification System
 
 ### Points System
 - Complete lesson: 100 XP
@@ -272,14 +272,14 @@ Your app will be live at: `https://your-app.vercel.app`
 - Level 21+: Master (10000+ XP)
 
 ### Achievements
-- 🎓 **First Steps** - Complete your first lesson
-- 📚 **Bookworm** - Complete 10 lessons
-- 💯 **Perfectionist** - Get 100% on 5 quizzes
-- 🔥 **On Fire** - Maintain 30-day streak
-- 🏆 **Top Scholar** - Reach #1 on leaderboard
+- **First Steps** - Complete your first lesson
+- **Bookworm** - Complete 10 lessons
+- **Perfectionist** - Get 100% on 5 quizzes
+- **On Fire** - Maintain 30-day streak
+- **Top Scholar** - Reach #1 on leaderboard
 - And 50+ more...
 
-## 🎨 Features in Detail
+## Features in Detail
 
 ### Dashboard
 - Progress overview with charts
@@ -318,7 +318,7 @@ Your app will be live at: `https://your-app.vercel.app`
 - Filter by category
 - Public profiles
 
-## 🔒 Security & Privacy
+## Security & Privacy
 
 - Secure authentication with NextAuth
 - Password hashing with bcrypt
@@ -327,7 +327,7 @@ Your app will be live at: `https://your-app.vercel.app`
 - GDPR compliant
 - User data export available
 
-## 📊 Analytics
+## Analytics
 
 Track learning metrics:
 - Time spent on lessons
@@ -336,18 +336,18 @@ Track learning metrics:
 - Learning velocity
 - Engagement patterns
 
-## 🛠️ Development
+## Development
 
 ### Available Scripts
 
 ```bash
-npm run dev          # Start development server
-npm run build        # Build for production
-npm run start        # Start production server
-npm run lint         # Run ESLint
-npm run type-check   # Check TypeScript types
-npm run format       # Format code with Prettier
-npm test             # Run tests
+pnpm dev          # Start development server
+pnpm build        # Build for production
+pnpm start        # Start production server
+pnpm lint         # Run ESLint
+pnpm type-check   # Check TypeScript types
+pnpm format       # Format code with Prettier
+pnpm test         # Run tests
 ```
 
 ### Adding New Content
@@ -448,7 +448,7 @@ CREATE TABLE quiz_attempts (
 );
 ```
 
-## 🌐 API Routes
+## API Routes
 
 All API routes are serverless functions:
 
@@ -476,14 +476,14 @@ All API routes are serverless functions:
 - `GET /api/leaderboard` - Get rankings
 - `GET /api/leaderboard/user/[id]` - User rank
 
-## 🎯 Roadmap
+## Roadmap
 
 ### v1.0 (Current)
-- ✅ Core lesson system
-- ✅ Quiz functionality
-- ✅ User authentication
-- ✅ Progress tracking
-- ✅ Basic gamification
+- Core lesson system
+- Quiz functionality
+- User authentication
+- Progress tracking
+- Basic gamification
 
 ### v1.1 (Next)
 - [ ] Flashcard system
@@ -499,30 +499,30 @@ All API routes are serverless functions:
 - [ ] VR heritage tours
 - [ ] Multiple languages
 
-## 🤝 Contributing
+## Contributing
 
 This is an educational project. Contributions for learning purposes are welcome!
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for details.
 
-## 📄 License
+## License
 
 MIT License - See [LICENSE](LICENSE) file for details.
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - Based on Capstone 2 "Preserving Heritage with AI" project
 - Architectural element data from historical databases
 - Icons by Lucide
 - UI inspiration from modern learning platforms
 
-## 📧 Contact
+## Contact
 
 - Website: https://heritage-academy.vercel.app
 - Email: hello@heritage-academy.app
 - GitHub: [@yourusername](https://github.com/yourusername)
 
-## 🎓 For Educators
+## For Educators
 
 Heritage Academy can be used in:
 - Architecture courses
@@ -535,6 +535,6 @@ Bulk licenses and custom content available - contact us!
 
 ---
 
-**Built with ❤️ for heritage education and cultural preservation**
+**Built for heritage education and cultural preservation**
 
 Powered by Next.js, Vercel, and passion for learning.
