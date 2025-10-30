@@ -10,10 +10,9 @@ import { getLessonBySlug } from '@/data/lessons'
 import { useProgress } from '@/components/providers'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
-import type { Pluggable } from 'unified'
 
-// Type-only shim to avoid TS incompatibility between react-markdown/unified/vfile types in CI
-const gfmPlugin = remarkGfm as unknown as Pluggable
+// Shim to avoid TS incompatibility between react-markdown/unified/vfile types in CI
+const gfmPlugin = remarkGfm as unknown as any
 
 export default function LessonDetailPage() {
   const params = useParams<{ slug: string }>()
