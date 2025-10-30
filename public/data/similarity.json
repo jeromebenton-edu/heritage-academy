@@ -1,0 +1,43 @@
+{
+  "altar_001": [
+    { "id": "stained_glass_001", "score": 0.74 },
+    { "id": "column_001", "score": 0.61 }
+  ],
+  "apse_001": [
+    { "id": "vault_001", "score": 0.77 },
+    { "id": "dome_inner_001", "score": 0.71 }
+  ],
+  "bell_tower_001": [
+    { "id": "flying_buttress_001", "score": 0.65 },
+    { "id": "dome_outer_001", "score": 0.55 }
+  ],
+  "column_001": [
+    { "id": "altar_001", "score": 0.61 },
+    { "id": "stained_glass_001", "score": 0.6 }
+  ],
+  "dome_inner_001": [
+    { "id": "dome_outer_001", "score": 0.85 },
+    { "id": "vault_001", "score": 0.6 }
+  ],
+  "dome_outer_001": [
+    { "id": "dome_inner_001", "score": 0.85 },
+    { "id": "bell_tower_001", "score": 0.55 }
+  ],
+  "flying_buttress_001": [
+    { "id": "vault_001", "score": 0.73 },
+    { "id": "gargoyle_001", "score": 0.57 }
+  ],
+  "gargoyle_001": [
+    { "id": "flying_buttress_001", "score": 0.57 },
+    { "id": "vault_001", "score": 0.5 }
+  ],
+  
+  "stained_glass_001": [
+    { "id": "altar_001", "score": 0.74 },
+    { "id": "column_001", "score": 0.6 }
+  ],
+  "vault_001": [
+    { "id": "flying_buttress_001", "score": 0.73 },
+    { "id": "apse_001", "score": 0.77 }
+  ]
+}
