@@ -10,6 +10,10 @@ import { getLessonBySlug } from '@/data/lessons'
 import { useProgress } from '@/components/providers'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
+import type { Pluggable } from 'unified'
+
+// Type-only shim to avoid TS incompatibility between react-markdown/unified/vfile types in CI
+const gfmPlugin = remarkGfm as unknown as Pluggable
 
 export default function LessonDetailPage() {
   const params = useParams<{ slug: string }>()
@@ -52,7 +56,7 @@ export default function LessonDetailPage() {
           Difficulty: {lesson.difficulty} • Duration: {lesson.duration} min • XP: {lesson.xp}
         </Alert>
         <h2>Introduction</h2>
-        <ReactMarkdown remarkPlugins={[remarkGfm]}>{lesson.content.introduction}</ReactMarkdown>
+        <ReactMarkdown remarkPlugins={[gfmPlugin]}>{lesson.content.introduction}</ReactMarkdown>
 
         {lesson.objectives?.length ? (
           <>
@@ -68,7 +72,7 @@ export default function LessonDetailPage() {
         {lesson.content.sections.map((s, idx) => (
           <section key={idx} className="mt-6">
             <h3>{s.title}</h3>
-            <ReactMarkdown remarkPlugins={[remarkGfm]}>{s.content}</ReactMarkdown>
+            <ReactMarkdown remarkPlugins={[gfmPlugin]}>{s.content}</ReactMarkdown>
             {s.examples?.length ? (
               <ul>
                 {s.examples.map((ex, i) => (
@@ -108,7 +112,7 @@ export default function LessonDetailPage() {
         <h3>Summary</h3>
         <div className="not-prose">
           <Card className="p-4">
-            <ReactMarkdown remarkPlugins={[remarkGfm]}>{lesson.content.summary}</ReactMarkdown>
+            <ReactMarkdown remarkPlugins={[gfmPlugin]}>{lesson.content.summary}</ReactMarkdown>
           </Card>
         </div>
       </section>
