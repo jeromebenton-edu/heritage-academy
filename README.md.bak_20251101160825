@@ -5,7 +5,7 @@
 [![Next.js](https://img.shields.io/badge/Next.js-14-black)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.3-blue)](https://www.typescriptlang.org/)
 [![Vercel](https://img.shields.io/badge/Deploy-Vercel-black)](https://vercel.com)
-[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 Heritage Academy is a comprehensive educational platform designed to teach students and enthusiasts about heritage architecture, cultural preservation, and architectural history through interactive lessons, quizzes, and gamification.
 
@@ -63,7 +63,7 @@ Heritage Academy is a comprehensive educational platform designed to teach stude
 - Vercel Blob (Image/file storage)
 - Vercel KV (Redis for caching)
 
-**Authentication (planned):**
+**Authentication:**
 - NextAuth.js
 - Credentials provider
 - Email/password + OAuth ready
@@ -142,7 +142,7 @@ heritage-academy/
 
 1. **Clone the repository:**
 ```bash
-cd ~/projects/heritage_academy
+cd /home/jerome/projects/teach/4906/capstone2/heritage_academy
 ```
 
 2. **Install dependencies:**
@@ -170,13 +170,7 @@ BLOB_READ_WRITE_TOKEN="your-blob-token"
 
 4. **Set up database:**
 ```bash
-# Initialize schema in Vercel Postgres
-# Option A: In Vercel dashboard, open SQL editor and paste lib/db/schema.sql
-# Option B: CLI — connect then paste the SQL
-pnpm add -g vercel
-vercel login
-vercel postgres connect
-# paste the SQL from lib/db/schema.sql
+pnpm run db:setup
 ```
 
 5. **Run development server:**
@@ -326,7 +320,7 @@ Your app will be live at: `https://your-app.vercel.app`
 
 ## Security & Privacy
 
-- Planned: authentication with NextAuth
+- Secure authentication with NextAuth
 - Password hashing with bcrypt
 - HTTPS enforced on Vercel
 - No sensitive data in localStorage
@@ -458,7 +452,7 @@ CREATE TABLE quiz_attempts (
 
 All API routes are serverless functions:
 
-### Authentication (planned)
+### Authentication
 - `POST /api/auth/signup` - Create account
 - `POST /api/auth/login` - Login
 - `POST /api/auth/logout` - Logout
@@ -513,7 +507,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for details.
 
 ## License
 
-Apache License 2.0 - See [LICENSE](LICENSE) file for details.
+MIT License - See [LICENSE](LICENSE) file for details.
 
 ## Acknowledgments
 

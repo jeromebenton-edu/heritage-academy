@@ -13,7 +13,7 @@ Complete guide for deploying Heritage Academy to Vercel in under 10 minutes.
 ### Step 1: Push to GitHub
 
 ```bash
-cd ~/projects/heritage_academy
+cd /home/jerome/projects/teach/4906/capstone2/heritage_academy
 
 # Initialize git
 git init
@@ -36,8 +36,6 @@ git push -u origin main
 ### Step 3: Configure Environment Variables
 
 In Vercel dashboard, add these environment variables:
-
-> Note: Authentication is planned. You can skip NEXTAUTH_* until implemented.
 
 **Required:**
 ```env
@@ -88,9 +86,9 @@ vercel login
 # Link project
 vercel link
 
-# Initialize schema
-vercel postgres connect
-# paste the SQL from lib/db/schema.sql
+# Run migration
+vercel env pull .env.local
+pnpm run db:setup
 ```
 
 ### Step 6: Deploy!
@@ -103,31 +101,65 @@ Your app will be live at: `https://your-app.vercel.app`
 
 ## 📊 Add Optional Features
 
-### Cloudflare R2 Storage (Recommended)
+### Vercel Blob Storage (For Images)
 
-We use Cloudflare R2 instead of Vercel Blob due to pricing. R2 is S3-compatible and great for serving public assets.
-
-1. In Cloudflare dashboard, go to R2 → Create Bucket
-2. Create Access Keys (Access Key ID + Secret) and note your Account ID
-3. Add these environment variables in Vercel:
+1. Go to **Storage** → **Create Database** → **Blob**
+2. Choose **Free Tier** (100GB bandwidth/month)
+3. Add environment variable automatically provided:
 ```env
-R2_ACCOUNT_ID=xxxxxxxxxxxxxxxxxxxx
-R2_ACCESS_KEY_ID=AKIA...
-R2_SECRET_ACCESS_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxx
-R2_BUCKET_NAME=heritage-academy
-R2_ENDPOINT=https://<accountid>.r2.cloudflarestorage.com
-R2_PUBLIC_BASE_URL=https://<bucket>.<accountid>.r2.cloudflarestorage.com
+BLOB_READ_WRITE_TOKEN=vercel_blob_rw_xxx
 ```
 
-4. Upload images to R2 (UI/CLI) or use a custom script
-5. Generate JSON without uploading using existing script:
+4. Upload your local images to Blob and generate gallery JSON:
+
 ```bash
-pnpm blob:dry --local --base-url=$R2_PUBLIC_BASE_URL
-# writes URLs like $R2_PUBLIC_BASE_URL/gallery/<cat>/<name>
-```
-6. Update next.config.js -> images.remotePatterns to allow your R2 host
+# Place images under public/images/gallery/<category>/*.jpg|png|webp
+# Example: public/images/gallery/altar/altar_001.jpg
 
-> Legacy option: Vercel Blob is supported by existing scripts, but R2 is preferred.
+# Dry-run to preview keys and output JSON without uploading
+pnpm blob:dry
+
+# Upload and generate public/data files (index + categories + images.json)
+# Tip: throttle to avoid exceeding Advanced Operations quota
+#   --categories: process only these categories
+#   --limit:      max files per category for this run
+#   --resume:     skip files already present in category JSON
+pnpm blob:upload --categories=altar,apse --limit=200 --resume
+
+# Commit the generated JSON so the app can load them statically
+git add public/data
+git commit -m "chore: add gallery data from Blob"
+git push
+```
+
+The app reads from `/data/index.json`, `/data/category/<category>.json`, and `/data/images.json` at runtime. Next/Image is configured to optimize images hosted on `*.public.blob.vercel-storage.com`.
+
+Advanced Ops guidance:
+- Each `put()` counts as an Advanced Operation. Large batches can quickly consume quota.
+- Use `--limit` and `--categories` to batch uploads.
+- Use `--resume` to make subsequent runs idempotent (skips previously uploaded files).
+
+### Alternative: Local or external hosting
+
+If your Blob store is suspended or you prefer another host:
+
+- Local (commit a small subset):
+  - Copy a curated set into `public/images/gallery/<category>/...`
+  - Generate JSON that points to local files:
+    ```bash
+    pnpm gallery:local --categories=altar,apse
+    ```
+  - Commit the resulting `public/data/**` and the few images (use `git add -f` to bypass .gitignore for a small set).
+
+- External object storage (e.g., Cloudflare R2, S3, B2, Cloudinary):
+  - Upload your files keeping the `gallery/<category>/<name>` path.
+  - Generate JSON with a custom base URL (no uploads performed):
+    ```bash
+    pnpm blob:dry --local --base-url=https://your-cdn.example.com/
+    # writes URLs like https://your-cdn.example.com/gallery/<cat>/<name>
+    ```
+  - Update `next.config.js` `images.remotePatterns` to allow the host.
+
 ### Vercel KV (Redis Cache)
 
 1. Go to **Storage** → **Create Database** → **KV**
@@ -215,7 +247,7 @@ export default function RootLayout({ children }) {
 ### Production Variables
 
 ```env
-# Authentication (Planned — can omit until implemented)
+# Authentication
 NEXTAUTH_SECRET=<generate-random-string>
 NEXTAUTH_URL=https://your-app.vercel.app
 
@@ -223,15 +255,8 @@ NEXTAUTH_URL=https://your-app.vercel.app
 POSTGRES_URL=postgres://...
 POSTGRES_PRISMA_URL=postgres://...
 
-# Cloudflare R2 Storage (Recommended)
-R2_ACCOUNT_ID=xxxxxxxxxxxxxxxxxxxx
-R2_ACCESS_KEY_ID=AKIA...
-R2_SECRET_ACCESS_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxx
-R2_BUCKET_NAME=heritage-academy
-R2_ENDPOINT=https://<accountid>.r2.cloudflarestorage.com
-R2_PUBLIC_BASE_URL=https://<bucket>.<accountid>.r2.cloudflarestorage.com
-# Legacy (optional): Vercel Blob token if you choose to use it
-# BLOB_READ_WRITE_TOKEN=vercel_blob_rw_xxx
+# Blob Storage (Optional)
+BLOB_READ_WRITE_TOKEN=vercel_blob_rw_xxx
 
 # KV Cache (Optional)
 KV_URL=redis://...
@@ -364,7 +389,7 @@ Before going live:
 - [ ] Check mobile responsiveness
 - [ ] Verify email notifications (if enabled)
 - [ ] Review security headers
-- [ ] Test authentication flows (planned)
+- [ ] Test authentication flows
 - [ ] Verify database backups
 
 ---
@@ -374,7 +399,7 @@ Before going live:
 - [Vercel Documentation](https://vercel.com/docs)
 - [Next.js Documentation](https://nextjs.org/docs)
 - [Vercel Postgres Guide](https://vercel.com/docs/storage/vercel-postgres)
-- [NextAuth.js with Vercel](https://next-auth.js.org/deployment) (planned)
+- [NextAuth.js with Vercel](https://next-auth.js.org/deployment)
 
 ---
 

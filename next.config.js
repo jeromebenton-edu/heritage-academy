@@ -4,10 +4,24 @@ const nextConfig = {
 
   // Image optimization
   images: {
+    // Allow optimization for Vercel Blob public URLs (any subdomain)
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**.public.blob.vercel-storage.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'pub-30e84c28bcc645f895ca4d0f4b22a9c7.r2.dev',
+      },
+      {
+        protocol: 'https',
+        hostname: 'assets.your-domain.com',
+      },
+    ],
     domains: [
       'vercel.com',
       'public.blob.vercel-storage.com',
-      // Add your blob storage domain here
     ],
     formats: ['image/avif', 'image/webp'],
   },
