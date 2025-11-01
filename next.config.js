@@ -1,28 +1,18 @@
 /** @type {import('next').NextConfig} */
+const r2Host = process.env.R2_PUBLIC_BASE_URL ? new URL(process.env.R2_PUBLIC_BASE_URL).hostname : undefined
 const nextConfig = {
   reactStrictMode: true,
 
   // Image optimization
   images: {
-    // Allow optimization for Vercel Blob public URLs (any subdomain)
+    // Allow optimization for Cloudflare R2 or custom CDN host
     remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: '**.public.blob.vercel-storage.com',
-      },
-      {
-        protocol: 'https',
-        hostname: 'pub-30e84c28bcc645f895ca4d0f4b22a9c7.r2.dev',
-      },
-      {
-        protocol: 'https',
-        hostname: 'assets.your-domain.com',
-      },
+      ...(r2Host ? [{ protocol: 'https', hostname: r2Host }] : []),
+      { protocol: 'https', hostname: '**.public.blob.vercel-storage.com' },
+      { protocol: 'https', hostname: 'pub-30e84c28bcc645f895ca4d0f4b22a9c7.r2.dev' },
+      { protocol: 'https', hostname: 'assets.your-domain.com' },
     ],
-    domains: [
-      'vercel.com',
-      'public.blob.vercel-storage.com',
-    ],
+    domains: [],
     formats: ['image/avif', 'image/webp'],
   },
 

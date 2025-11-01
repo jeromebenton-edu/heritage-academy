@@ -60,7 +60,7 @@ Heritage Academy is a comprehensive educational platform designed to teach stude
 
 **Database & Storage:**
 - Vercel Postgres (SQL database)
-- Vercel Blob (Image/file storage)
+- Cloudflare R2 (S3-compatible object storage)
 - Vercel KV (Redis for caching)
 
 **Authentication (planned):**
@@ -135,7 +135,8 @@ heritage-academy/
 ### Prerequisites
 
 - Node.js 18+ and pnpm 8+
-- Vercel account (free tier works)
+- Vercel account for Node hosting (free tier works)
+- Cloudflare account for image storage (R2 free tier works)
 - Git
 
 ### Local Development

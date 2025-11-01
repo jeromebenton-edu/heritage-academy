@@ -15,7 +15,6 @@
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.668.0",
-    "@vercel/blob": "^0.22.0",
     "clsx": "^2.0.0",
     "date-fns": "^3.0.6",
     "framer-motion": "^10.16.16",
@@ -57,10 +56,6 @@
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
     "test": "jest",
     "test:watch": "jest --watch",
-    "blob:upload": "DOTENV_CONFIG_PATH=.env.local node -r dotenv/config scripts/upload-to-blob.mjs",
-    "blob:dry": "DOTENV_CONFIG_PATH=.env.local node -r dotenv/config scripts/upload-to-blob.mjs --dry-run",
-    "gallery:local": "node scripts/upload-to-blob.mjs --dry-run --local",
-    "blob:resume": "DOTENV_CONFIG_PATH=.env.local node -r dotenv/config scripts/upload-to-blob.mjs --resume",
     "blob:validate": "node scripts/validate-gallery.mjs",
     "r2:upload": "DOTENV_CONFIG_PATH=.env.local node -r dotenv/config scripts/upload-to-r2.mjs",
     "r2:dry": "DOTENV_CONFIG_PATH=.env.local node -r dotenv/config scripts/upload-to-r2.mjs --dry-run"
