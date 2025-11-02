@@ -215,9 +215,9 @@ Vercel Postgres (Free):
   ✅ 10k rows
   ✅ Perfect for educational use!
 
-Vercel Blob (Optional, Free):
-  ✅ 100GB bandwidth/month
-  ✅ For user uploads/images
+Cloudflare R2 (Optional, Free):
+  ✅ S3-compatible object storage
+  ✅ Generous free tier for bandwidth/storage
 
 Total Cost: $0/month (Free tier is sufficient!)
 

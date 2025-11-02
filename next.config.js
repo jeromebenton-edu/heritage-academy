@@ -8,7 +8,6 @@ const nextConfig = {
     // Allow optimization for Cloudflare R2 or custom CDN host
     remotePatterns: [
       ...(r2Host ? [{ protocol: 'https', hostname: r2Host }] : []),
-      { protocol: 'https', hostname: '**.public.blob.vercel-storage.com' },
       { protocol: 'https', hostname: 'pub-30e84c28bcc645f895ca4d0f4b22a9c7.r2.dev' },
       { protocol: 'https', hostname: 'assets.your-domain.com' },
     ],

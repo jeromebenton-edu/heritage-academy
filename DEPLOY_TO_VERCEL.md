@@ -105,7 +105,7 @@ Your app will be live at: `https://your-app.vercel.app`
 
 ### Cloudflare R2 Storage (Recommended)
 
-We use Cloudflare R2 instead of Vercel Blob due to pricing. R2 is S3-compatible and great for serving public assets.
+Use Cloudflare R2 for images. It is S3-compatible and works well for public assets.
 
 1. In Cloudflare dashboard, go to R2 → Create Bucket
 2. Create Access Keys (Access Key ID + Secret) and note your Account ID
@@ -119,15 +119,13 @@ R2_ENDPOINT=https://<accountid>.r2.cloudflarestorage.com
 R2_PUBLIC_BASE_URL=https://<bucket>.<accountid>.r2.cloudflarestorage.com
 ```
 
-4. Upload images to R2 (UI/CLI) or use a custom script
-5. Generate JSON without uploading using existing script:
+4. Upload images to R2 (UI/CLI) or use the provided script
+5. Generate JSON without uploading:
 ```bash
-pnpm blob:dry --local --base-url=$R2_PUBLIC_BASE_URL
+pnpm r2:dry --base-url=$R2_PUBLIC_BASE_URL
 # writes URLs like $R2_PUBLIC_BASE_URL/gallery/<cat>/<name>
 ```
 6. Update next.config.js -> images.remotePatterns to allow your R2 host
-
-> Legacy option: Vercel Blob is supported by existing scripts, but R2 is preferred.
 ### Vercel KV (Redis Cache)
 
 1. Go to **Storage** → **Create Database** → **KV**
@@ -229,9 +227,7 @@ R2_ACCESS_KEY_ID=AKIA...
 R2_SECRET_ACCESS_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxx
 R2_BUCKET_NAME=heritage-academy
 R2_ENDPOINT=https://<accountid>.r2.cloudflarestorage.com
-R2_PUBLIC_BASE_URL=https://<bucket>.<accountid>.r2.cloudflarestorage.com
-# Legacy (optional): Vercel Blob token if you choose to use it
-# BLOB_READ_WRITE_TOKEN=vercel_blob_rw_xxx
+R2_PUBLIC_BASE_URL=https://pub-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.r2.dev
 
 # KV Cache (Optional)
 KV_URL=redis://...

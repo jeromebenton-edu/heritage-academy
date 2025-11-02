@@ -165,8 +165,8 @@ POSTGRES_URL="your-connection-string"
 NEXTAUTH_URL="http://localhost:3000"
 NEXTAUTH_SECRET="generate-with-openssl-rand-base64-32"
 
-# Blob Storage (Vercel Blob)
-BLOB_READ_WRITE_TOKEN="your-blob-token"
+# Cloudflare R2 (public URL for images used by Next/Image)
+R2_PUBLIC_BASE_URL="https://pub-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.r2.dev"
 ```
 
 4. **Set up database:**
@@ -355,6 +355,9 @@ pnpm lint         # Run ESLint
 pnpm type-check   # Check TypeScript types
 pnpm format       # Format code with Prettier
 pnpm test         # Run tests
+pnpm embed:build  # Build CLIP embeddings from local images
+pnpm neighbors:build  # Build top-K similarity graph from embeddings
+pnpm recs:build   # Build embeddings + neighbors + validate
 ```
 
 ### Adding New Content
@@ -405,6 +408,29 @@ export const columnQuiz = {
   ],
 };
 ```
+
+### Embeddings & Recommendations (Node-only)
+
+- We generate image embeddings locally using CLIP ViT‑B/32 via `@xenova/transformers` (WASM/ONNX). Results are effectively equivalent to the Python Capstone2 notebook when using the same backbone and preprocessing.
+- Source images are read directly from `public/images/gallery/<category>/*` (no download from R2 required).
+
+Commands:
+- Build embeddings (skip existing ids):
+  - `pnpm embed:build`
+  - or restrict: `pnpm embed:build --categories=altar,apse --limit=200`
+- Build similarity neighbors (default top‑K=12):
+  - `pnpm neighbors:build`
+  - custom K: `pnpm neighbors:build --k=16`
+- One‑shot (embeddings + neighbors + validate):
+  - `pnpm recs:build`
+
+Outputs:
+- `public/data/embeddings.json` — `{ "<id>": [float, ...] }` (L2‑normalized, rounded to 4 decimals)
+- `public/data/similarity.json` — `{ "<id>": [{ id, score }, ...] }` using cosine similarity
+
+Notes:
+- First run will download the ONNX model weights (internet required once). Subsequent runs use the local cache.
+- If you add new images later, re‑run `pnpm embed:build` to append vectors and `pnpm neighbors:build` to refresh neighbors.
 
 ### Database Schema
 
@@ -526,8 +552,8 @@ Apache License 2.0 - See [LICENSE](LICENSE) file for details.
 ## Contact
 
 - Website: https://heritage-academy.vercel.app
-- Email: hello@heritage-academy.app
-- GitHub: [@yourusername](https://github.com/yourusername)
+- Email: hello@heritage-academy.app (not set up yet)
+- GitHub: [@jeromebenton-edu](https://github.com/jeromebenton-edu)
 
 ## For Educators
 
