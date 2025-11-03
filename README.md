@@ -62,6 +62,7 @@ Heritage Academy is a comprehensive educational platform designed to teach stude
 - Vercel Postgres (SQL database)
 - Cloudflare R2 (S3-compatible object storage)
 - Vercel KV (Redis for caching)
+>NOTE: Vercel Blob limits the number of uploads in the free tier, so steer clear if you want to stay in the free-zone.
 
 **Authentication (planned):**
 - NextAuth.js
@@ -358,6 +359,7 @@ pnpm test         # Run tests
 pnpm embed:build  # Build CLIP embeddings from local images
 pnpm neighbors:build  # Build top-K similarity graph from embeddings
 pnpm recs:build   # Build embeddings + neighbors + validate
+pnpm recs:batch   # Upload to R2 in batches, then rebuild recs
 ```
 
 ### Adding New Content
@@ -431,6 +433,16 @@ Outputs:
 Notes:
 - First run will download the ONNX model weights (internet required once). Subsequent runs use the local cache.
 - If you add new images later, re‑run `pnpm embed:build` to append vectors and `pnpm neighbors:build` to refresh neighbors.
+
+Batch upload + rebuild
+- One command to upload categories in batches and rebuild recommendations:
+  - `pnpm recs:batch` (defaults: batch-size 3, no limit, no resume)
+- Options:
+  - `pnpm recs:batch --limit 200`          # cap files per category this run
+  - `pnpm recs:batch --resume`             # skip files already present in category JSON
+  - `pnpm recs:batch --batch-size 4`       # number of categories per batch
+  - `pnpm recs:batch --categories altar,apse`  # restrict to specific categories
+  - `pnpm recs:batch --recs-each`          # rebuild embeddings + neighbors after each batch
 
 ### Database Schema
 

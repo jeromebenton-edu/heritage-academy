@@ -1,12 +1,1 @@
-{
-  "categories": [
-    {
-      "category": "altar",
-      "count": 200
-    },
-    {
-      "category": "apse",
-      "count": 200
-    }
-  ]
-}
+{"categories":[{"category":"altar","count":969},{"category":"apse","count":570},{"category":"bell_tower","count":1229},{"category":"column","count":2129},{"category":"dome_inner","count":702},{"category":"dome_outer","count":1345},{"category":"flying_buttress","count":477},{"category":"gargoyle","count":1809},{"category":"stained_glass","count":1195},{"category":"vault","count":1274}]}

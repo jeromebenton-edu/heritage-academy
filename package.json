@@ -62,6 +62,10 @@
     "embed:build": "node scripts/build-embeddings.mjs",
     "neighbors:build": "node scripts/build-neighbors.mjs",
     "recs:build": "pnpm embed:build && pnpm neighbors:build && pnpm gallery:validate",
+    "data:aggregate": "node scripts/build-images-from-categories.mjs",
+    "recs:prune": "node scripts/prune-recs.mjs",
+    "recs:refresh": "pnpm data:aggregate && pnpm recs:prune && pnpm neighbors:build && pnpm gallery:validate",
+    "recs:batch": "bash scripts/batch-upload-recs.sh",
     "r2:upload": "DOTENV_CONFIG_PATH=.env.local node -r dotenv/config scripts/upload-to-r2.mjs",
     "r2:dry": "DOTENV_CONFIG_PATH=.env.local node -r dotenv/config scripts/upload-to-r2.mjs --dry-run"
   },
